@@ -2,6 +2,7 @@
 import mpd
 import subprocess
 import datetime
+import time
 
 def sendmessage(title, message):
     subprocess.Popen(['notify-send', title, message, '-i', '/home/damonj/bin/note.png'])
@@ -16,4 +17,4 @@ while True:
 	if client.idle('player') != "":
 		d = client.currentsong()
 		sendmessage( d['artist'],d['title'] +"\n"+ d['album'] +"\n"+ str(datetime.timedelta(seconds=int(d['time']))) )
-
+		time.sleep(1)
