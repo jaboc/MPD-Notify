@@ -12,9 +12,11 @@ def sendmessage(title, message):
 client = mpd.MPDClient(use_unicode=True)
 client.connect("localhost", 6600)
 
+current = ""
 
 while True:
 	if client.idle('player') != "":
 		d = client.currentsong()
-		sendmessage( d['artist'],d['title'] +"\n"+ d['album'] +"\n"+ str(datetime.timedelta(seconds=int(d['time']))) )
-		time.sleep(1)
+		if d['title'] != current:
+			sendmessage( d['artist'],d['title'] +"\n"+ d['album'] +"\n"+ str(datetime.timedelta(seconds=int(d['time']))) )
+			current = d['title']
